@@ -14,15 +14,23 @@ passport.use(new LocalStrategy({
 async function(req, email, password, done){
     // find a user and establish the identity
     const user = await User.findOne({ email });
-    const isPasswordMatch = await bcrypt.compare(password, user.password)
-    if(!user || !isPasswordMatch)
-    {
-        req.flash('error', 'Invalid Username/Password');
+    if(!user){
+        req.flash('error', 'User does not exists.');
         return done(null, false);
     }
-    else 
+    else
     {
-        return done(null, user);
+        const isPasswordMatch = await bcrypt.compare(password, user.password)
+        if(!isPasswordMatch)
+        {
+            req.flash('error', 'Invalid Username/Password');
+            return done(null, false);
+        }
+        else 
+        {
+            return done(null, user);
+        }
+
     }
 }
 
