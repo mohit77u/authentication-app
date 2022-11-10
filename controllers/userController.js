@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const PasswordReset = require("../models/passwordReset");
-const forgotPasswordMail = require('../mailers/forgotPasswordMail.js');
+const ForgotPasswordMail = require('../mailers/ForgotPasswordMail');
 
 // render the sign up page
 module.exports.signup = function(req,res){
@@ -135,7 +135,7 @@ module.exports.forgotPassword = async(req, res) => {
     }
 
     // send mail
-    await forgotPasswordMail.sendMail(data)
+    await ForgotPasswordMail.sendMail(data)
     .then(()=>{
         req.flash('success','Password reset link sent to your email account')
         return res.redirect('back');
