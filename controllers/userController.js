@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const PasswordReset = require("../models/passwordReset");
-const forgotPasswordMail = require('../mailers/forgotPasswordMail');
+const forgotPasswordMail = require('../mailers/forgotPasswordMail.js');
 
 // render the sign up page
 module.exports.signup = function(req,res){
